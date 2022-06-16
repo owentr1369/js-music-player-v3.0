@@ -57,3 +57,26 @@ function pauseSong() {
 
   audio.pause();
 }
+
+// Change song events
+prevBtn.addEventListener("click", function () {
+  prevSong();
+});
+nextBtn.addEventListener("click", function () {
+  nextSong();
+});
+
+function prevSong() {
+  songIndex--;
+  if (songIndex < 0) {
+    songIndex = songs.length;
+  }
+  loadSong(songs[songIndex]);
+}
+function nextSong() {
+  songIndex++;
+  if (songIndex > songs.length - 1) {
+    songIndex = 0;
+  }
+  loadSong(songs[songIndex]);
+}
