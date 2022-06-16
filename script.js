@@ -19,7 +19,7 @@ const songs = [
 ];
 
 // Keep track of songs
-let songIndex = 0;
+let songIndex = 1;
 
 // Innitially load song info DOM
 loadSong(songs[songIndex]);
@@ -72,6 +72,7 @@ function prevSong() {
     songIndex = songs.length;
   }
   loadSong(songs[songIndex]);
+  playSong();
 }
 function nextSong() {
   songIndex++;
@@ -79,6 +80,7 @@ function nextSong() {
     songIndex = 0;
   }
   loadSong(songs[songIndex]);
+  playSong();
 }
 
 // Change audio time
@@ -98,3 +100,5 @@ function setProgress(e) {
 
   audio.currentTime = (clickX / width) * duration;
 }
+// Next song when end
+audio.addEventListener("ended", nextSong);
