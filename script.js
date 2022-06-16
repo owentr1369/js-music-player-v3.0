@@ -6,7 +6,7 @@ const nextBtn = document.querySelector("#next");
 
 const audio = document.querySelector("#audio");
 const progress = document.querySelector(".progress");
-const progressContainer = document.querySelector(".progress-container");
+const progressContainer = document.getElementById("progress-container");
 
 const title = document.querySelector("#title");
 const cover = document.querySelector("#cover");
@@ -19,7 +19,7 @@ const songs = [
 ];
 
 // Keep track of songs
-let songIndex = 0;
+let songIndex = 1;
 
 // Innitially load song info DOM
 loadSong(songs[songIndex]);
@@ -72,6 +72,7 @@ function prevSong() {
     songIndex = songs.length;
   }
   loadSong(songs[songIndex]);
+  playSong();
 }
 function nextSong() {
   songIndex++;
@@ -79,4 +80,25 @@ function nextSong() {
     songIndex = 0;
   }
   loadSong(songs[songIndex]);
+  playSong();
 }
+
+// Change audio time
+audio.addEventListener("timeupdate", updateProgress);
+function updateProgress(e) {
+  const { duration, currentTime } = e.srcElement;
+  const progressPercent = (currentTime / duration) * 100;
+
+  progress.style.width = `${progressPercent}%`;
+}
+
+progressContainer.addEventListener("click", setProgress);
+function setProgress(e) {
+  const width = this.clientWidth;
+  const clickX = e.offsetX;
+  const duration = audio.duration;
+
+  audio.currentTime = (clickX / width) * duration;
+}
+// Next song when end
+audio.addEventListener("ended", nextSong);
