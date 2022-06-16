@@ -30,3 +30,13 @@ function loadSong(song) {
   audio.src = `./music/mp3/${song}.mp3`;
   cover.src = `./music/thumbnail/${song}.jpg`;
 }
+
+// Event listeners
+playBtn.addEventListener("click", function () {
+  const isPlaying = musicContainer.classList.contains("play");
+  if (isPlaying) {
+    pauseSong();
+  } else {
+    playSong();
+  }
+});
