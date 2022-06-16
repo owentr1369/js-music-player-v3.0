@@ -19,7 +19,7 @@ const songs = [
 ];
 
 // Keep track of songs
-let songIndex = 2;
+let songIndex = 0;
 
 // Innitially load song info DOM
 loadSong(songs[songIndex]);
@@ -33,10 +33,27 @@ function loadSong(song) {
 
 // Event listeners
 playBtn.addEventListener("click", function () {
+  // Check does .play exist in musicContainer
   const isPlaying = musicContainer.classList.contains("play");
+
   if (isPlaying) {
     pauseSong();
   } else {
     playSong();
   }
 });
+
+function playSong() {
+  musicContainer.classList.add("play");
+  playBtn.querySelector("i.fas").classList.remove("fa-play");
+  playBtn.querySelector("i.fas").classList.add("fa-pause");
+
+  audio.play();
+}
+function pauseSong() {
+  musicContainer.classList.remove("play");
+  playBtn.querySelector("i.fas").classList.add("fa-play");
+  playBtn.querySelector("i.fas").classList.remove("fa-pause");
+
+  audio.pause();
+}
