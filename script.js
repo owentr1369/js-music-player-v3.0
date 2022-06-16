@@ -6,7 +6,7 @@ const nextBtn = document.querySelector("#next");
 
 const audio = document.querySelector("#audio");
 const progress = document.querySelector(".progress");
-const progressContainer = document.querySelector(".progress-container");
+const progressContainer = document.getElementById("progress-container");
 
 const title = document.querySelector("#title");
 const cover = document.querySelector("#cover");
@@ -88,4 +88,13 @@ function updateProgress(e) {
   const progressPercent = (currentTime / duration) * 100;
 
   progress.style.width = `${progressPercent}%`;
+}
+
+progressContainer.addEventListener("click", setProgress);
+function setProgress(e) {
+  const width = this.clientWidth;
+  const clickX = e.offsetX;
+  const duration = audio.duration;
+
+  audio.currentTime = (clickX / width) * duration;
 }
